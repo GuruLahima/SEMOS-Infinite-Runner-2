@@ -120,7 +120,7 @@ public class CatController : MonoBehaviour
                 float delta = currentTouchPosition.x - originalTouchPos.x;
                 if (delta > 0)
                 {
-                    // finger is moving left
+                    // finger is moving right
                     if (Mathf.Abs(delta) / Screen.width > swipeThreshold / 100f)
                     {
                         // this is indeed a swipe
@@ -141,7 +141,7 @@ public class CatController : MonoBehaviour
         {
 
             // moving left
-            if (GetLeftMovement())
+            if (SimpleInput.GetButtonDown("MoveLeft"))
             {
                 if (!isMoving)
                 {
@@ -153,7 +153,7 @@ public class CatController : MonoBehaviour
             }
 
             // moving right
-            if (GetRightMovement())
+            if (SimpleInput.GetButtonDown("MoveRight"))
             {
                 if (!isMoving)
                 {
@@ -165,7 +165,7 @@ public class CatController : MonoBehaviour
             }
 
             // jumping
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (SimpleInput.GetButtonDown("Jump"))
             {
                 if (!isMoving)
                 {
@@ -190,7 +190,7 @@ public class CatController : MonoBehaviour
             }
 
             // sliding
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            if (SimpleInput.GetButtonDown("Slide"))
             {
                 if (!isMoving)
                 {
@@ -240,6 +240,7 @@ public class CatController : MonoBehaviour
                 targetPosition = positions[1];
                 playerState = PlayerState.Center;
             }
+
         }
         // if player is moving towards the right
         else
@@ -259,6 +260,15 @@ public class CatController : MonoBehaviour
         float timer = 0;
         float distance = Vector3.Distance(transform.position, targetPosition);
         float moveInterval = distance / moveSpeed;
+
+        // rotate player to face the direction they are moving. just for visual feedback.
+        transform.DOLocalRotate(new Vector3(0, direction ? -90 : 90, 0), moveInterval / 2f).OnComplete(
+            () =>
+            {
+                transform.DOLocalRotate(new Vector3(0, 0, 0), moveInterval / 2);
+            }
+        );
+
         // while (Vector3.Distance(transform.position, targetPosition) > threshold)
         while (timer <= moveInterval)
         {
