@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using DG.Tweening;
-using System.Security.Cryptography.X509Certificates;
 
 public class CatController : MonoBehaviour
 {
