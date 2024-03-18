@@ -141,7 +141,8 @@ public class CatController : MonoBehaviour
         {
 
             // moving left
-            if (SimpleInput.GetButtonDown("MoveLeft"))
+            if (SimpleInput.GetAxis("HorizontalMove") < 0 &&
+                Mathf.Abs(SimpleInput.GetAxis("HorizontalMove")) > Mathf.Abs(SimpleInput.GetAxis("JumpAndSlide")))
             {
                 if (!isMoving)
                 {
@@ -153,7 +154,8 @@ public class CatController : MonoBehaviour
             }
 
             // moving right
-            if (SimpleInput.GetButtonDown("MoveRight"))
+            if (SimpleInput.GetAxis("HorizontalMove") > 0 &&
+            Mathf.Abs(SimpleInput.GetAxis("HorizontalMove")) > Mathf.Abs(SimpleInput.GetAxis("JumpAndSlide")))
             {
                 if (!isMoving)
                 {
@@ -165,7 +167,8 @@ public class CatController : MonoBehaviour
             }
 
             // jumping
-            if (SimpleInput.GetButtonDown("Jump"))
+            if (SimpleInput.GetAxis("JumpAndSlide") > 0 &&
+             Mathf.Abs(SimpleInput.GetAxis("JumpAndSlide")) > Mathf.Abs(SimpleInput.GetAxis("HorizontalMove")))
             {
                 if (!isMoving)
                 {
@@ -190,7 +193,8 @@ public class CatController : MonoBehaviour
             }
 
             // sliding
-            if (SimpleInput.GetButtonDown("Slide"))
+            if (SimpleInput.GetAxis("JumpAndSlide") < 0 &&
+                Mathf.Abs(SimpleInput.GetAxis("JumpAndSlide")) > Mathf.Abs(SimpleInput.GetAxis("HorizontalMove")))
             {
                 if (!isMoving)
                 {
