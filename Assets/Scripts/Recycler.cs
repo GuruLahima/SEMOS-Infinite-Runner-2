@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Recycler : MonoBehaviour
 {
-
+    public ObjectPooler objectPooler;
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(other.gameObject);
+        objectPooler.RecycleObject(other.gameObject);
+        // Destroy(other.gameObject);
     }
 }
